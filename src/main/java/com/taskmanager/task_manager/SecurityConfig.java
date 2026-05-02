@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -15,15 +16,17 @@ import java.util.List;
 @Configuration
 public class SecurityConfig {
 
+    // ✅ Password encoder
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    // ✅ Security filter chain
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // ✅ CORS inside Security
+                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // 🔥 IMPORTANT
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
@@ -33,24 +36,33 @@ public class SecurityConfig {
         return http.build();
     }
 
-    // ✅ Move CORS config here — so Security knows about it
+    // ✅ FULL CORS CONFIG
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
+
         CorsConfiguration config = new CorsConfiguration();
 
         config.setAllowCredentials(true);
-        config.setAllowedOrigins(List.of(
-                "http://localhost:5173",
-                "http://localhost:5174",
-                "https://your-app.vercel.app",
-                "https://smart-task-manager-frontend-wgu2.onrender.com"
 
+        // 🔥 VERY IMPORTANT → must match your frontend EXACTLY
+        config.setAllowedOrigins(List.of(
+                "https://smart-task-manager-frontend-wgu2.onrender.com"
         ));
+
+        // ✅ Allow all methods including OPTIONS (for preflight)
+        config.setAllowedMethods(List.of(
+                "GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"
+        ));
+
+        // ✅ Allow all headers
         config.setAllowedHeaders(List.of("*"));
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH")); // ✅ PATCH added
+
+        // ✅ Expose headers
+        config.setExposedHeaders(List.of("*"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
+
         return source;
     }
 }
