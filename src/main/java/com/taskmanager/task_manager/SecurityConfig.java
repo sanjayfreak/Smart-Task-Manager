@@ -42,7 +42,9 @@ public class SecurityConfig {
         config.setAllowedOrigins(List.of(
                 "http://localhost:5173",
                 "http://localhost:5174",
-                "https://your-app.vercel.app"  // ✅ add after deploying frontend
+                "https://your-app.vercel.app",
+                "https://smart-task-manager-frontend-wgu2.onrender.com"
+
         ));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH")); // ✅ PATCH added
