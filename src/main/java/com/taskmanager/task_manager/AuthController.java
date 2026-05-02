@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = "https://smart-task-manager-frontend-wgu2.onrender.com")
+@CrossOrigin(origins = "smart-task-manager-21xn.onrender.com")
 public class AuthController {
 
     @Autowired
