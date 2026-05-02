@@ -11,7 +11,7 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("https://smart-task-manager-frontend-wgu2.onrender.com")
+                        .allowedOrigins("smart-task-manager-21xn.onrender.com")
                         .allowedMethods("*")
                         .allowedHeaders("*");
             }
