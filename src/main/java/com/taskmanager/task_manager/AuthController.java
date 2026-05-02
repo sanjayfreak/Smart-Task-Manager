@@ -3,9 +3,11 @@ package com.taskmanager.task_manager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.web.bind.annotation.*;
+
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin
+@CrossOrigin(origins = "https://smart-task-manager-frontend-wgu2.onrender.com")
 public class AuthController {
 
     @Autowired
