@@ -46,7 +46,7 @@ public class SecurityConfig {
 
         // 🔥 VERY IMPORTANT → must match your frontend EXACTLY
         config.setAllowedOrigins(List.of(
-                "smart-task-manager-21xn.onrender.com"
+                "https://smart-task-manager-21xn.onrender.com"
         ));
 
         // ✅ Allow all methods including OPTIONS (for preflight)
